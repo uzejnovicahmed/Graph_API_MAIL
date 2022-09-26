@@ -12,16 +12,25 @@ Module to Send Mails via Graph API.
 ### Installing
 
 Download this repo and import the `Graph-Mail.psm1` module file into your PowerShell session.
+Testing with Send-Mail.ps1
 
 ```
 Import-Module .\Graph-Mail.psm1;
+
 ```
 
-## Development
+## Functions in GRAPH API MAIL Modul
 
-For ease of deployment (copy-paste) all functions are includen in file `Graph-Mail.psm1`.
+```
+
+Request-GraphMail
+Send-GraphMail
+
+```
 
 ## Examples
+
+### Request Graph Mail :
 
 ```
 #$TID = "943a3020-dc82-4n25-aa35-837d3032asdf99ed" # dummy
@@ -29,33 +38,36 @@ For ease of deployment (copy-paste) all functions are includen in file `Graph-Ma
 #$CSECRET = ".GT8Q~tclExvaWdfadghdfahadf1gr~~.YZe-68j7dtq" #dummy
 
 
-initializing-GraphMail -TENANTID $TID -CLIENTID $CID -CLIENTSECRET $CSECRET -MAILSENDER "AdeleV@dev.onmicrosoft.com" -MAILRECIPIENT "mail.recipient@dev.onmicrosoft.com"
-
-Send Mail without attachment:
-
-Send-GraphMail -HEADERS $headers
-
-Send Mail with attachemnt:
-
-Send-GraphMail -HEADERS $headers -Attachmentpath C:\temp\test.txt
-
+Request-GraphMail ` 
+    -TENANTID $TID ` 
+    -CLIENTID $CID `
+    -CLIENTSECRET $CSECRET `
+    -MAILSENDER "AdeleV@dev.onmicrosoft.com" `
+    -MAILRECIPIENT "mail.recipient@dev.onmicrosoft.com"
 
 ```
+### Send Mail without attachment:
+```
+    Send-GraphMail -Subject "Testsubject" -HTML_CONTENT "This Mail was sent from Graph API"
 
-### Usage in PowerShell
+```
+### Send Mail with attachemnt:
 
-Initializize Graph Mail. 
+```
+    Send-GraphMail -Attachmentpath "C:\temp\test.txt" -Subject "Testsubject" -HTML_CONTENT "This Mail was sent from Graph API"
 
-Send-Graph Mail
+```
 
 ## Resources
 
 * https://docs.microsoft.com/en-us/powershell/scripting/learn/deep-dives/everything-about-exceptions?view=powershell-7.2
-
+* https://learn.microsoft.com/en-us/azure/active-directory/develop/quickstart-register-app
+* https://learn.microsoft.com/en-us/graph/api/user-sendmail?view=graph-rest-1.0&tabs=http
 ## Missing features
 
 ```
-Errorhandling
-Attachmenttypes
+* Errorhandling
+* Attachmenttypes
+* Check if Request-GraphMail was executed before Send-GraphMail 
 
 ```

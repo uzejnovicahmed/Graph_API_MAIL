@@ -139,6 +139,7 @@ function Send-GraphMail {
  .Description
   Send Mails with Attachment
   Send Mails without Attachment
+  Acces token generated and parsed into Send-GraphMail function with function Request-GraphMail
   
 
  .Parameter MAILSENDER
@@ -149,16 +150,19 @@ function Send-GraphMail {
   This Parameter is Optional.
   If not used the Recipient from Request-GraphMail will be used
 
- .Parameter HEADER
+ .Parameter Attachmentpath
+ Path for the Attachmentfile. Only A Full Path will be accepted. --> "C:\Temp\dummy_attachment.pdf"
+
+ .Parameter HEADERS
   This Parameter is Optional
-  This Parameter will be automaticaly set in the Script.
-  You can also use a custom header with access token. But it is not necessary
+  This Parameter will be automaticaly set in the Script. $script:HEADERS : Execution of Request-GraphMail is mandatory
+  You can also use a custom header with an access token. But it is not necessary
 
- .Parameter MAILSENDER
-  The M365 User Mail Address from where the Mail will be sent.
+ .Parameter HTML_CONTENT
+  The HTML Content for the Mail you will send.
 
- .Parameter HighlightDate
-  The Recipients Mail Address
+ .Parameter Subject
+  A String as an Subject for the Mail.
 
  .Example
    # Send-GraphMail with Attachment.
@@ -187,50 +191,28 @@ function Send-GraphMail {
   #Before running Send-Graph mail run Request-GraphMail to authenticate. If not Send-GraphMail won't work !
   #Send GraphMail without Attachment
 
-  Send-GraphMail ` 
-        -MAILSENDER "AdeleV@dev.onmicrosoft.com" ` 
+###################################################################################
+
+  Send-GraphMail `
+        -MAILSENDER "AdeleV@dev.onmicrosoft.com" `
         -MAILRECIPIENT "dev.mic@onmicrosoft.com" `
         -Subject "Dummy Subject sent from Graph API ENDPOINT"
 
 
-  return : {
+###################################################################################
+
+
+  result : 
+
+  {
 
               status         : Success
               sender         : AdeleV@dev.onmicrosoft.com
               recipient      : dev.mic@onmicrosoft.com
               MailBody       : System.Collections.Hashtable
               ExitCode       : 0
-
+              
   }
-
-  $MAILSENDER = $Script:INIT_SENDER,
-    [Parameter(mandatory = $false)]
-    [System.Net.Mail.MailAddress]
-    $MAILRECIPIENT = $Script:INIT_RECIPIENT,
-    [Parameter(mandatory = $false)][ValidateScript({
-        if (-Not ($_ | Test-Path) ) {
-          throw "File or folder does not exist" 
-        }
-        if (-Not ($_ | Test-Path -PathType Leaf) ) {
-          throw "The Path argument must be a file. Folder paths are not allowed."
-        }
-        return $true
-      })]
-    [System.IO.FileInfo]
-    $Attachmentpath = $null,
-    [Parameter(mandatory = $false)]
-    [hashtable]
-    $HEADERS = $script:HEADERS,
-    [Parameter(mandatory = $false)]
-    [string]
-    $HTML_CONTENT,
-    [Parameter(Mandatory = $false)]
-    [string]
-    $Subject = "Defaultsubject: Please Modify"
-
-
-
-
 #>
 
 
