@@ -33,19 +33,19 @@ function Request-GraphMail {
         -TENANTID $TID `
         -CLIENTID $CID `
         -CLIENTSECRET $CSECRET ` 
-        -MAILSENDER "AdeleV@dev.onmicrosoft.com" ` 
+        -MAILSENDER "AdeleV@test.onmicrosoft.com" ` 
         -MAILRECIPIENT "dev.mic@onmicrosoft.com"
 
   return : {
 
               headers   : {Content-type, Authorization}
-              TENANTID  : 913a0020-dc82-4a35-aa35-837d303299ed
-              CLIENTID  : 99e6600c-1a3c-4100-9b44-8fe0b7893b38
-              SENDER    : AdeleV@uzeah.onmicrosoft.com
-              RECIPIENT : ahmed.uzejnovic@baseit.at
+              TENANTID  : xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+              CLIENTID  : xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+              SENDER    : AdeleV@test.onmicrosoft.com
+              RECIPIENT : dev.mic@onmicrosoft.com
               ExitCode  : 0
 
-  }
+  	   }
 
 #>
 
@@ -128,14 +128,6 @@ function Request-GraphMail {
   }
 
 }
-
-
-
-$TID = "1913a0020-dc82-4a35-aa35-837d303299ed"
-$CID = "99e6600c-1a3c-4100-9b44-8fe0b7893b38"
-$CSECRET = ".GT8Q~tclExvauVnDuS7dMW1gr~~.YZe-68j7dtq"
-
-$result = Request-GraphMail -TENANTID $TID -CLIENTID $CID -CLIENTSECRET $CSECRET -MAILSENDER "AdeleV@uzeah.onmicrosoft.com" -MAILRECIPIENT "ahmed.uzejnovic@baseit.at"
 
 
 
